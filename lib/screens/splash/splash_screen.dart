@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({
-    Key? key,
-  }) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
   static const String routeName = '/splash';
   static Route route() {
     return MaterialPageRoute(
