@@ -9,9 +9,9 @@ class CategoryRepo extends BaseCategoryRepo {
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   @override
-  Stream<List<Category>> getAllCatgories() {
+  Stream<List<Category>> getAllCategories() {
     return _firebaseFirestore.collection('categories').snapshots().map(
         (snapshot) =>
-            snapshot.docs.map((doc) => Category.fromSnapshor(doc)).toList());
+            snapshot.docs.map((doc) => Category.fromSnapshot(doc)).toList());
   }
 }
