@@ -30,7 +30,7 @@ class Cart extends Equatable {
 
   String get subTotalString => subTotal.toStringAsFixed(2);
   String get deliveryFreeString => deliveryFree(subTotal).toStringAsFixed(2);
-  String get freeDeliveryString => freeDelivery(subTotal);
+  String get deliveryFeeString => freeDelivery(subTotal);
   String get totalString => total(subTotal, deliveryFree).toStringAsFixed(2);
 
   Map productQuantity(List<Product> listProducts) {

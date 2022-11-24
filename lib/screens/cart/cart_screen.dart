@@ -23,7 +23,7 @@ class CartScreen extends StatelessWidget {
         appBar: const CustomAppbar(title: "Cart"),
         bottomNavigationBar: BottomAppBar(
           color: Colors.black,
-          child: Container(
+          child: SizedBox(
             height: 70,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -64,7 +64,7 @@ class CartScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(state.cart.freeDeliveryString,
+                                Text(state.cart.deliveryFeeString,
                                     style:
                                         Theme.of(context).textTheme.headline5),
                                 ElevatedButton(

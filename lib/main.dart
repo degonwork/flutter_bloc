@@ -1,10 +1,12 @@
 import 'package:delivery_app/blocs/cart/cart_bloc.dart';
 import 'package:delivery_app/blocs/category/category_bloc.dart';
+import 'package:delivery_app/blocs/checkout/checkout_bloc.dart';
 import 'package:delivery_app/blocs/product/product_bloc.dart';
 import 'package:delivery_app/blocs/wishlist/wishlist_bloc.dart';
 import 'package:delivery_app/config/app_router.dart';
 import 'package:delivery_app/config/theme.dart';
 import 'package:delivery_app/repositories/category/category_repo.dart';
+import 'package:delivery_app/repositories/checkout/checkout_repo.dart';
 import 'package:delivery_app/repositories/product/product_repo.dart';
 import 'package:delivery_app/screens/screens.dart';
 import 'package:delivery_app/simple_bloc_observer.dart';
@@ -29,6 +31,12 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => WishlistBloc()..add(StartWishList())),
         BlocProvider(create: (_) => CartBloc()..add(CartStarted())),
+        BlocProvider(
+          create: (context) => CheckoutBloc(
+            cartBloc: context.read<CartBloc>(),
+            checkoutRepo: CheckoutRepo(),
+          ),
+        ),
         BlocProvider(
             create: (_) => CategoryBloc(categoryRepo: CategoryRepo())
               ..add(LoadCategories())),
