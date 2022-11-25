@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:delivery_app/blocs/cart/cart_bloc.dart';
 import 'package:delivery_app/blocs/category/category_bloc.dart';
 import 'package:delivery_app/blocs/product/product_bloc.dart';
-import 'package:delivery_app/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/custom_appbar.dart';
@@ -25,7 +24,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(title: "Zero To unicorn"),
+      appBar: CustomAppbar(
+        title: "Zero To unicorn",
+        action: IconButton(
+          icon: const Icon(Icons.favorite),
+          onPressed: () {
+            Navigator.pushNamed(context, '/wishlist');
+          },
+        ),
+      ),
       bottomNavigationBar: const CustomNavBar(),
       body: SingleChildScrollView(
         child: Column(

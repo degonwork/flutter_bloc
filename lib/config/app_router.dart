@@ -1,4 +1,6 @@
 import 'package:delivery_app/models/category_model.dart';
+import 'package:delivery_app/screens/order/order_comfirmation.dart';
+import 'package:delivery_app/screens/payment/payment_selection.dart';
 import 'package:delivery_app/screens/screens.dart';
 import 'package:flutter/material.dart';
 import '../models/product_model.dart';
@@ -21,6 +23,10 @@ class AppRouter {
         return SplashScreen.route();
       case CheckOutScreen.routeName:
         return CheckOutScreen.route();
+      case OrderComfirmationScreen.routeName:
+        return OrderComfirmationScreen.route();
+      case PaymentSelectionScreen.routeName:
+        return PaymentSelectionScreen.route();
       default:
         return _errorRoute();
     }

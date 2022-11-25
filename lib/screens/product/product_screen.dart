@@ -20,7 +20,15 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: product.name),
+      appBar: CustomAppbar(
+        title: product.name,
+        action: IconButton(
+          icon: const Icon(Icons.favorite),
+          onPressed: () {
+            Navigator.pushNamed(context, '/wishlist');
+          },
+        ),
+      ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
         child: SizedBox(

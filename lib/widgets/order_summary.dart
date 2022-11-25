@@ -38,6 +38,7 @@ class OrderSummary extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 30),
             Stack(
               children: [
                 Container(
@@ -45,6 +46,7 @@ class OrderSummary extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(color: Colors.black.withAlpha(50)),
                 ),
+                const SizedBox(height: 30),
                 Container(
                   height: 50,
                   margin: const EdgeInsets.all(5.0),

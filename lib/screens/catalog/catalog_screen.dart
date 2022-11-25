@@ -3,7 +3,6 @@ import 'package:delivery_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/category_model.dart';
-import '../../models/product_model.dart';
 
 class CatalogScreen extends StatelessWidget {
   const CatalogScreen({Key? key, required this.category}) : super(key: key);
@@ -19,7 +18,15 @@ class CatalogScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppbar(title: category.name),
+        appBar: CustomAppbar(
+          title: category.name,
+          action: IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              Navigator.pushNamed(context, '/wishlist');
+            },
+          ),
+        ),
         bottomNavigationBar: const CustomNavBar(),
         body: BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
           if (state is ProductLoading) {

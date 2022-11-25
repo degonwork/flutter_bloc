@@ -1,3 +1,4 @@
+import 'package:delivery_app/models/payment_method_model.dart';
 import 'package:delivery_app/models/product_model.dart';
 import 'package:equatable/equatable.dart';
 
@@ -12,6 +13,7 @@ class Checkout extends Equatable {
   final String? subTotal;
   final String? deliveryFee;
   final String? total;
+  final PaymentMethod paymentMethod;
 
   const Checkout({
     required this.fullName,
@@ -24,6 +26,7 @@ class Checkout extends Equatable {
     required this.subTotal,
     required this.deliveryFee,
     required this.total,
+    this.paymentMethod = PaymentMethod.google_pay,
   });
   @override
   List<Object?> get props => [
@@ -36,7 +39,8 @@ class Checkout extends Equatable {
         products,
         subTotal,
         deliveryFee,
-        total
+        total,
+        paymentMethod
       ];
 
   Map<String, dynamic> toDocument() {

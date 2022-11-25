@@ -4,8 +4,11 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
   const CustomAppbar({
     Key? key,
     required this.title,
+    required this.action,
   }) : super(key: key);
+  final Widget action;
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -24,14 +27,7 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
         ),
       ),
       iconTheme: const IconThemeData(color: Colors.black),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.favorite),
-          onPressed: () {
-            Navigator.pushNamed(context, '/wishlist');
-          },
-        )
-      ],
+      actions: [action],
     );
   }
 

@@ -11,11 +11,13 @@ part 'product_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepo _productRepo;
   StreamSubscription? _productSubscription;
-  ProductBloc({required ProductRepo productRepo})
-      : _productRepo = productRepo,
+
+  ProductBloc({
+    required ProductRepo productRepo,
+  })  : _productRepo = productRepo,
         super(ProductLoading()) {
     on<LoadProducts>(_onLoadProducts);
-    on<UpdateProducts>(__onUpdateProducts);
+    on<UpdateProducts>(_onUpdateProducts);
   }
 
   void _onLoadProducts(
@@ -30,7 +32,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         );
   }
 
-  void __onUpdateProducts(
+  void _onUpdateProducts(
     UpdateProducts event,
     Emitter<ProductState> emit,
   ) {

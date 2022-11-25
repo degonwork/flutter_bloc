@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:delivery_app/blocs/cart/cart_bloc.dart';
+import 'package:delivery_app/blocs/payment/payment_bloc.dart';
 import 'package:delivery_app/models/models.dart';
+import 'package:delivery_app/models/payment_method_model.dart';
 import 'package:delivery_app/repositories/checkout/checkout_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,11 +12,17 @@ part 'checkout_state.dart';
 class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   final CartBloc _cartBloc;
   final CheckoutRepo _checkoutRepo;
+  final PaymentBloc _paymentBloc;
   StreamSubscription? _cartSubscription;
   StreamSubscription? _checkoutSubscription;
-  CheckoutBloc({required CartBloc cartBloc, required CheckoutRepo checkoutRepo})
-      : _cartBloc = cartBloc,
+  StreamSubscription? _paymentSubscription;
+  CheckoutBloc({
+    required CartBloc cartBloc,
+    required CheckoutRepo checkoutRepo,
+    required PaymentBloc paymentBloc,
+  })  : _cartBloc = cartBloc,
         _checkoutRepo = checkoutRepo,
+        _paymentBloc = paymentBloc,
         super(cartBloc.state is CartLoaded
             ? CheckoutLoaded(
                 products: (cartBloc.state as CartLoaded).cart.products,
@@ -24,38 +32,37 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
                 total: (cartBloc.state as CartLoaded).cart.totalString,
               )
             : CheckoutLoading()) {
-    on<UpdateCheckout>(_mapUpdateCheckout);
-    on<ConfirmCheckout>(_mapConfirmCheckout);
-    _cartSubscription = _cartBloc.stream.listen((state) {
-      if (state is CartLoaded) {
-        add(
-          UpdateCheckout(cart: state.cart),
-        );
+    on<UpdateCheckout>(_onUpdateCheckout);
+    on<ConfirmCheckout>(_onConfirmCheckout);
+
+    _paymentSubscription = paymentBloc.stream.listen((state) {
+      if (state is PaymentLoaded) {
+        add(UpdateCheckout(paymentMethod: state.paymentMethod));
       }
     });
   }
-  void _mapUpdateCheckout(
+  void _onUpdateCheckout(
       UpdateCheckout event, Emitter<CheckoutState> emit) async {
     if (state is CheckoutLoaded) {
       final state = this.state as CheckoutLoaded;
       emit(
         CheckoutLoaded(
-          email: event.email ?? state.email,
-          fullName: event.fullName ?? state.fullName,
-          products: event.cart?.products ?? state.products,
-          deliveryFee: event.cart?.deliveryFeeString ?? state.deliveryFee,
-          subTotal: event.cart?.subTotalString ?? state.subTotal,
-          total: event.cart?.totalString ?? state.total,
-          address: event.address ?? state.address,
-          city: event.city ?? state.city,
-          country: event.country ?? state.country,
-          zipCode: event.zipCode ?? state.zipCode,
-        ),
+            email: event.email ?? state.email,
+            fullName: event.fullName ?? state.fullName,
+            products: state.products,
+            deliveryFee: state.deliveryFee,
+            subTotal: state.subTotal,
+            total: state.total,
+            address: event.address ?? state.address,
+            city: event.city ?? state.city,
+            country: event.country ?? state.country,
+            zipCode: event.zipCode ?? state.zipCode,
+            paymentMethod: event.paymentMethod ?? state.paymentMethod),
       );
     }
   }
 
-  void _mapConfirmCheckout(
+  void _onConfirmCheckout(
     ConfirmCheckout event,
     Emitter<CheckoutState> emit,
   ) async {
@@ -72,6 +79,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
   @override
   Future<void> close() {
     _cartSubscription?.cancel();
+    _paymentSubscription?.cancel();
     return super.close();
   }
 }

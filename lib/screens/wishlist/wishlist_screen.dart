@@ -19,7 +19,10 @@ class WishListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppbar(title: "Wishlist"),
+      appBar: CustomAppbar(
+        title: "Wishlist",
+        action: Container(),
+      ),
       bottomNavigationBar: const CustomNavBar(),
       body: BlocBuilder<WishlistBloc, WishlistState>(builder: (context, state) {
         if (state is WishlistLoading) {

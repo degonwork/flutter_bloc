@@ -1,3 +1,4 @@
+import 'package:delivery_app/blocs/checkout/checkout_bloc.dart';
 import 'package:delivery_app/models/models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,12 +7,12 @@ part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartLoading()) {
-    on<CartStarted>(_mapCartStartedToState);
-    on<CartProductAdded>(_mapCartAddToState);
-    on<CartProductRemoved>(_mapCartRemoveToState);
+    on<CartStarted>(_onCartStartedToState);
+    on<CartProductAdded>(_onCartAddToState);
+    on<CartProductRemoved>(_onCartRemoveToState);
   }
 
-  void _mapCartStartedToState(
+  void _onCartStartedToState(
     CartStarted event,
     Emitter<CartState> emit,
   ) async {
@@ -26,7 +27,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  void _mapCartAddToState(
+  void _onCartAddToState(
     CartProductAdded event,
     Emitter<CartState> emit,
   ) async {
@@ -46,7 +47,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  void _mapCartRemoveToState(
+  void _onCartRemoveToState(
     CartProductRemoved event,
     Emitter<CartState> emit,
   ) async {
