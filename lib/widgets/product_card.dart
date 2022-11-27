@@ -3,6 +3,7 @@ import 'package:delivery_app/screens/product/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/wishlist/wishlist_bloc.dart';
 import '../models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
@@ -87,14 +88,22 @@ class ProductCard extends StatelessWidget {
                       },
                     ),
                     isWishList
-                        ? Expanded(
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                              ),
-                            ),
+                        ? BlocBuilder<WishlistBloc, WishlistState>(
+                            builder: (context, state) {
+                              return Expanded(
+                                child: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<WishlistBloc>()
+                                        .add(RemovetWishListProduct(product));
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              );
+                            },
                           )
                         : const SizedBox(),
                   ],

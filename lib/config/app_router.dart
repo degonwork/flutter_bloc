@@ -27,6 +27,12 @@ class AppRouter {
         return OrderComfirmationScreen.route();
       case PaymentSelectionScreen.routeName:
         return PaymentSelectionScreen.route();
+      case LoginScreen.routeName:
+        return LoginScreen.route();
+      case SignUpScreen.routeName:
+        return SignUpScreen.route();
+      case ProfileScreen.routeName:
+        return ProfileScreen.route();
       default:
         return _errorRoute();
     }

@@ -1,4 +1,3 @@
-import 'package:delivery_app/screens/order/order_comfirmation.dart';
 import 'package:delivery_app/screens/payment/payment_selection.dart';
 import 'package:delivery_app/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -27,44 +26,47 @@ class CheckOutScreen extends StatelessWidget {
         color: Colors.black,
         child: SizedBox(
           height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              BlocBuilder<CheckoutBloc, CheckoutState>(
-                builder: (context, state) {
-                  if (state is CheckoutLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (state is CheckoutLoaded) {
-                    switch (state.paymentMethod) {
-                      case PaymentMethod.app_pay:
-                        return Text(
+          child: Center(
+            child: BlocBuilder<CheckoutBloc, CheckoutState>(
+              builder: (context, state) {
+                if (state is CheckoutLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is CheckoutLoaded) {
+                  switch (state.paymentMethod) {
+                    case PaymentMethod.app_pay:
+                      return GestureDetector(
+                        onTap: () {},
+                        child: Text(
                           "Pay with Apple",
                           style: Theme.of(context)
                               .textTheme
                               .headline3!
                               .copyWith(color: Colors.white),
-                        );
+                        ),
+                      );
 
-                      case PaymentMethod.google_pay:
-                        return Text(
+                    case PaymentMethod.google_pay:
+                      return GestureDetector(
+                        onTap: () {},
+                        child: Text(
                           "Pay with goole",
                           style: Theme.of(context)
                               .textTheme
                               .headline3!
                               .copyWith(color: Colors.white),
-                        );
-                    }
-                  } else {
-                    return const Center(
-                      child: Text("Something went wrong"),
-                    );
+                        ),
+                      );
                   }
-                },
-              )
-            ],
+                } else {
+                  return const Center(
+                    child: Text("Something went wrong"),
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),

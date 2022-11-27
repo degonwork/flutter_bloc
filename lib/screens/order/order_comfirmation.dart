@@ -20,25 +20,6 @@ class OrderComfirmationScreen extends StatelessWidget {
         title: "Order Confirmation",
         action: Container(),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
-        child: SizedBox(
-          height: 70,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-                onPressed: () {},
-                child: Text(
-                  "ORDER NOW",
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

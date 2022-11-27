@@ -5,8 +5,10 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
     Key? key,
     required this.title,
     required this.action,
+    this.leading,
   }) : super(key: key);
   final Widget action;
+  final Widget? leading;
   final String title;
 
   @override
@@ -15,6 +17,7 @@ class CustomAppbar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
+      leading: leading,
       title: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         color: Colors.black,
